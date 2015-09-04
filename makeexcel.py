@@ -1,0 +1,20 @@
+#!/usr/bin/python
+import os
+import glob
+import csv
+import xlwt
+
+s = [ "instances", "volumes", "images" , "snapshots" , "VPCs" , "subnets" , "routetables" , "ELBs" , "RDS" , "IAM" , "S3" , "elastic" , "aws.costs" , "Summary" ]
+workbook = xlwt.Workbook(encoding='utf-8')
+for csvfile in s:
+     print csvfile
+     worksheet = workbook.add_sheet(csvfile)
+     with open(csvfile, 'rb') as f:
+        reader = csv.reader(f)
+        for r, row in enumerate(reader):
+            for c, col in enumerate(row):
+                worksheet.write(r, c, col)
+     for i in range(0,60):
+          worksheet.col(i).width = 30 * 256
+workbook.save("awsinfo.xls")
+

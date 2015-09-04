@@ -1,0 +1,141 @@
+EC
+ec2,Instance Size,vCPUs,Memory,Linux Cost (Monthly),Windows Cost (Monthly),Proposed
+ec2,t2.micro,1 cores,1.0 GB,14.4,14.4,t2.micro - 1/1
+ec2,t2.small,1 cores,2.0 GB,28.8,36,t2.small - 1/2
+ec2,t2.medium,2 cores,4.0 GB,57.6,72,t2.medium - 2/4
+ec2,t2.large,2 cores,8.0 GB,115.2,136.8,t2.large - 2/8
+ec2,m4.large,2 cores,8.0 GB,127.44,218.16,m4.large - 2/8
+ec2,m4.xlarge,4 cores,16.0 GB,254.88,436.32,m4.xlarge - 4/16
+ec2,m4.2xlarge,8 cores,32.0 GB,509.76,872.64,m4.2xlarge - 8/32
+ec2,m4.4xlarge,16 cores,64.0 GB,1019.52,1745.28,m4.4xlarge - 16/64
+ec2,m4.10xlarge,40 cores,160.0 GB,2548.8,4363.2,m4.10xlarge - 40/160
+ec2,c4.large,2 cores,3.75 GB,103.68,175.68,c4.large - 2/3.75
+ec2,c4.xlarge,4 cores,7.5 GB,208.08,351.36,c4.xlarge - 4/7.5
+ec2,c4.2xlarge,8 cores,15.0 GB,416.16,702.72,c4.2xlarge - 8/15
+ec2,c4.4xlarge,16 cores,30.0 GB,831.6,1405.44,c4.4xlarge - 16/30
+ec2,c4.8xlarge,36 cores,60.0 GB,1663.2,2810.88,c4.8xlarge - 36/60
+ec2,g2.2xlarge,8 cores,15.0 GB,646.56,761.76,g2.2xlarge - 8/15
+ec2,g2.8xlarge,32 cores,60.0 GB,2586.24,2786.4,g2.8xlarge - 32/60
+ec2,r3.large,2 cores,15.25 GB,151.2,232.56,r3.large - 2/15.25
+ec2,r3.xlarge,4 cores,30.5 GB,302.4,465.12,r3.xlarge - 4/30.5
+ec2,r3.2xlarge,8 cores,61.0 GB,604.8,930.24,r3.2xlarge - 8/61
+ec2,r3.4xlarge,16 cores,122.0 GB,1209.6,1761.84,r3.4xlarge - 16/122
+ec2,r3.8xlarge,32 cores,244.0 GB,2419.2,3312,r3.8xlarge - 32/244
+ec2,i2.xlarge,4 cores,30.5 GB,732.96,841.68,i2.xlarge - 4/30.5
+ec2,i2.2xlarge,8 cores,61.0 GB,1465.2,1682.64,i2.2xlarge - 8/61
+ec2,i2.4xlarge,16 cores,122.0 GB,2930.4,3365.28,i2.4xlarge - 8/61
+ec2,i2.8xlarge,32 cores,244.0 GB,5860.8,6730.56,i2.8xlarge - 32/244
+ec2,d2.xlarge,4 cores,30.5 GB,626.4,720.72,d2.xlarge - 4/30.5
+ec2,d2.2xlarge,8 cores,61.0 GB,1252.8,1411.92,d2.2xlarge - 8/61
+ec2,d2.4xlarge,16 cores,122.0 GB,2505.6,2723.04,d2.4xlarge - 16/122
+ec2,d2.8xlarge,36 cores,244.0 GB,5011.2,5499.36,d2.8xlarge - 36/244
+ec2,m3.medium,1 cores,3.75 GB,66.96,112.32
+ec2,m3.large,2 cores,7.5 GB,133.92,224.64
+ec2,m3.xlarge,4 cores,15.0 GB,267.84,449.28
+ec2,m3.2xlarge,8 cores,30.0 GB,536.4,899.28
+ec2,c3.large,2 cores,3.75 GB,95.04,171.36
+ec2,c3.xlarge,4 cores,7.5 GB,190.8,343.44
+ec2,c3.2xlarge,8 cores,15.0 GB,380.88,686.16
+ec2,c3.4xlarge,16 cores,30.0 GB,761.76,1372.32
+ec2,c3.8xlarge,32 cores,60.0 GB,1524.24,2745.36
+ec2,m1.small,1 cores,1.7 GB,41.76,66.96
+ec2,m1.medium,1 cores,3.75 GB,84.24,134.64
+ec2,m1.large,2 cores,7.5 GB,167.76,268.56
+ec2,m1.xlarge,4 cores,15.0 GB,336.24,537.84
+ec2,c1.medium,2 cores,1.7 GB,118.08,191.52
+ec2,c1.xlarge,8 cores,7.0 GB,471.6,766.8
+ec2,cc2.8xlarge,32 cores,60.5 GB,unavailable,unavailable
+ec2,cg1.4xlarge,16 cores,22.5 GB,unavailable,unavailable
+ec2,m2.xlarge,2 cores,17.1 GB,213.12,267.12
+ec2,m2.2xlarge,4 cores,34.2 GB,426.24,534.24
+ec2,m2.4xlarge,8 cores,68.4 GB,851.76,1067.76
+ec2,cr1.8xlarge,32 cores,244.0 GB,unavailable,unavailable
+ec2,hi1.4xlarge,16 cores,60.5 GB,unavailable,unavailable
+ec2,hs1.8xlarge,17 cores,117.0 GB,4010.4,4248.72
+ec2,t1.micro,1 cores,0.613 GB,14.4,14.4
+
+RDS
+rds,MySQL,db.t2.micro,21.6,43.2
+rds,MySQL,db.t2.small,36,72
+rds,MySQL,db.t2.medium,72,144
+rds,MySQL,db.m3.medium,86.4,172.8
+rds,MySQL,db.m3.large,172.8,345.6
+rds,MySQL,db.m3.xlarge,352.8,705.6
+rds,MySQL,db.m3.2xlarge,698.4,1396.8
+rds,MySQL,db.r3.large,208.8,417.6
+rds,MySQL,db.r3.xlarge,410.4,820.8
+rds,MySQL,db.r3.2xlarge,820.8,1641.6
+rds,MySQL,db.r3.4xlarge,1634.4,3268.8
+rds,MySQL,db.r3.8xlarge,3268.8,6537.6
+rds,MySQL,db.t1.micro,28.8,57.6
+rds,MySQL,db.m1.small,50.4,100.8
+rds,MySQL,db.m1.medium,108,216
+rds,MySQL,db.m1.large,208.8,417.6
+rds,MySQL,db.m1.xlarge,417.6,835.2
+rds,MySQL,db.m2.xlarge,273.6,547.2
+rds,MySQL,db.m2.2xlarge,554.4,1108.8
+rds,MySQL,db.m2.4xlarge,1101.6,2203.2
+rds,Oracle-SE1,db.t2.micro,28.8,57.6
+rds,Oracle-SE1,db.t2.small,57.6,115.2
+rds,Oracle-SE1,db.t2.medium,115.2,230.4
+rds,Oracle-SE1,db.m3.medium,172.8,345.6
+rds,Oracle-SE1,db.m3.large,345.6,691.2
+rds,Oracle-SE1,db.m3.xlarge,691.2,1382.4
+rds,Oracle-SE1,db.m3.2xlarge,1382.4,2764.8
+rds,Oracle-SE1,db.r3.large,381.6,763.2
+rds,Oracle-SE1,db.r3.xlarge,756,1512
+rds,Oracle-SE1,db.r3.2xlarge,1512,3024
+rds,Oracle-SE1,db.r3.4xlarge,3024,6048
+rds,Oracle-SE1,db.t1.micro,36,72
+rds,Oracle-SE1,db.m1.small,100.8,201.6
+rds,Oracle-SE1,db.m1.medium,194.4,388.8
+rds,Oracle-SE1,db.m1.large,388.8,777.6
+rds,Oracle-SE1,db.m1.xlarge,777.6,1555.2
+rds,Oracle-SE1,db.m2.xlarge,432,864
+rds,Oracle-SE1,db.m2.2xlarge,856.8,1713.6
+rds,Oracle-SE1,db.m2.4xlarge,1713.6,3427.2
+rds,SQLserver-SE,db.m3.medium,496.8,993.6
+rds,SQLserver-SE,db.m3.large,626.4,1252.8
+rds,SQLserver-SE,db.m3.xlarge,972,1944
+rds,SQLserver-SE,db.m3.2xlarge,1936.8,3873.6
+rds,SQLserver-SE,db.r3.large,770.4,1540.8
+rds,SQLserver-SE,db.r3.xlarge,1180.8,2361.6
+rds,SQLserver-SE,db.r3.2xlarge,2347.2,4694.4
+rds,SQLserver-SE,db.m1.small,468,936
+rds,SQLserver-SE,db.m1.medium,561.6,1123.2
+rds,SQLserver-SE,db.m1.large,712.8,1425.6
+rds,SQLserver-SE,db.m1.xlarge,1022.4,2044.8
+rds,SQLserver-SE,db.m2.xlarge,842.4,1684.8
+rds,SQLserver-SE,db.m2.2xlarge,1317.6,2635.2
+rds,SQLserver-SE,db.m2.4xlarge,2152.8,4305.6
+
+cache.t2.micro,0.022,15.84
+cache.t2.small,0.052,37.44
+cache.t2.medium,0.104,74.88
+cache.m3.medium,0.120,86.4
+cache.m3.large,0.240,172.8
+cache.m3.xlarge,0.485,349.2
+cache.m3.2xlarge,0.965,694.8
+cache.r3.large,0.273,196.56
+cache.r3.xlarge,0.546,393.12
+cache.r3.2xlarge,1.092,786.24
+cache.r3.4xlarge,2.184,1572.48
+cache.r3.8xlarge,4.368,3144.96
+cache.m1.small,0.055,39.6
+cache.m1.medium,0.112,80.64
+cache.m1.large,0.226,162.72
+cache.m1.xlarge,0.453,326.16
+cache.m2.xlarge,0.302,217.44
+cache.m2.2xlarge,0.604,434.88
+cache.m2.4xlarge,1.207,869.04
+cache.c1.xlarge,0.663,477.36
+cache.t1.micro,0.022,15.84
+
+ebs,gp2,0.12
+ebs,io1,0.138 
+ebs,standard,0.08 
+
+ebssnapshot,0.105
+
+S3,0.033
+
