@@ -1,5 +1,5 @@
 #!/bin/bash
-# awsinfo.sh - Produces Excel spreadsheet about AWS information
+# awsinfo.sh - Produces Excel spreadsheet about AWS resources
 #
 # Zoran Gagic - zorang at gmail.com
 #
