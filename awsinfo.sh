@@ -1,4 +1,25 @@
 #!/bin/bash
+# awsinfo.sh - Produces Excel spreadsheet about AWS information
+#
+# Zoran Gagic - zorang at gmail.com
+#
+# Copyright (C) 2015  Zoran Gagic
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+
+
 headers ()
 {
 echo "Account,InstanceId,InstanceType,PrivateIpAddress,PublicIpAddress,PublicDnsName,State,Platform,LaunchTime,VpcId,SubnetId,AvailabilityZone,KeyName,ImageId,Monitoring,Volume 1, Volume 2, Volume3, Volume 4, Volume 5,Volume 6,Volume 7,Volume 8,Valume 9,Valume 10,SG 1,SG 2,SG 3,SG 4,SG 5,Tag Name,Tag Product,Tag BU,Tag Environment,Tag Owner,Tag CC,Total Size all EBS Volumes,CPU 95th Percentile (when running),Instance CPU cores/memory,Percent Running,Monthly Cost,EBS Monthly Cost,Snapshot Monthly Cost,Days since Launch,Duration since Launch,Running at Night,DiskReadBytes95,DiskWriteOps95,DiskReadOps95,DiskWriteOps95,NetworkIn95,NetworkOut95" > instances
