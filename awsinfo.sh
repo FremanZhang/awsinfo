@@ -27,7 +27,7 @@ s3bucket=mybucket
 
 headers ()
 {
-echo "Account,InstanceId,InstanceType,PrivateIpAddress,PublicIpAddress,PublicDnsName,State,Platform,LaunchTime,VpcId,SubnetId,AvailabilityZone,KeyName,ImageId,Monitoring,Volume 1, Volume 2, Volume3, Volume 4, Volume 5,Volume 6,Volume 7,Volume 8,Valume 9,Valume 10,SG 1,SG 2,SG 3,SG 4,SG 5,Tag Name,Tag Product,Tag BU,Tag Environment,Tag Owner,Tag CC,Total Size all EBS Volumes,CPU 95th Percentile (when running),Instance CPU cores/memory,Percent Running,Monthly Cost,EBS Monthly Cost,Snapshot Monthly Cost,Days since Launch,Duration since Launch,Running at Night,DiskReadBytes95,DiskWriteOps95,DiskReadOps95,DiskWriteOps95,NetworkIn95,NetworkOut95" > instances
+echo "Account,InstanceId,InstanceType,PrivateIpAddress,PublicIpAddress,PublicDnsName,State,Platform,LaunchTime,VpcId,SubnetId,AvailabilityZone,KeyName,ImageId,Monitoring,Volume 1, Volume 2, Volume3, Volume 4, Volume 5,Volume 6,Volume 7,Volume 8,Valume 9,Valume 10,SG 1,SG 2,SG 3,SG 4,SG 5,Tag Name,Tag Product,Tag BU,Tag Environment,Tag Owner,Tag CC,Instance CPU cores/memory,Total Size all EBS Volumes,CPU 95th Percentile (when running),Percent Running,Monthly Cost,EBS Monthly Cost,Snapshot Monthly Cost,Days since Launch,Duration since Launch,Running at Night,DiskReadBytes95,DiskWriteOps95,DiskReadOps95,DiskWriteOps95,NetworkIn95,NetworkOut95" > instances
 echo "Account,VolumeId,VolumeType,Encrypted,State,Size,InstanceId,State,DeleteOnTermination,Device,Tag Name,Tag Product,Tag Bu,Tag Environment,Tag Owner,Tag Cc,Monthly Cost,VolumeIdleTime95,VolumeQueueLength95,VolumeReadBytes95,VolumeWriteBytes95,VolumeReadOps95,VolumeWriteOps95" > volumes
 echo "Account,ImageId,CreationDate,VirtualizationType,Name,VolumeSize,Architecture,Public,Tag Name,Tag Product,Tag Bu,Tag Environment,Tag Owner,Tag Cc,Monthly Cost" > images
 echo "Account,.SnapshotId,StartTime,VolumeSize,Description,VolumeId,State,Progress,Encrypted,Tag Product,Tag Bu,Tag Environment,Tag Owner,Tag Cc,Tag Name,Monthly Cost" > snapshots
@@ -283,7 +283,7 @@ echo "=== Starting instances `date`"
            st=`echo "scale=2;$st+$sc" | bc`
         done
 
-        echo "$line,$vszt,$cpu95,$cpu,$prunning,$cost,$vt,$st,$days,$length,$runnight,$DiskReadBytes95,$DiskWriteOps95,$DiskReadOps95,$DiskWriteOps95,$NetworkIn95,$NetworkOut95" >> instances
+        echo "$line,$cpu,$vszt,$cpu95,$prunning,$cost,$vt,$st,$days,$length,$runnight,$DiskReadBytes95,$DiskWriteOps95,$DiskReadOps95,$DiskWriteOps95,$NetworkIn95,$NetworkOut95" >> instances
   done < temp.instances
 
 
