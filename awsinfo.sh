@@ -23,6 +23,7 @@
 
 basedir=/usr/local/awsinfo
 accounts="acct1 acct2 acct3 acct4 acct5 acct6"
+s3bucket=mys3bucket
 
 headers ()
 {
@@ -150,7 +151,7 @@ mv awsinfo.xls awsinfo-$d$m$y.xls
 uploadS3 ()
 {
 export AWS_DEFAULT_PROFILE=actt1
-aws s3 cp awsinfo-$d$m$y.xls s3://awscmdb/awsinfo-$d$m$y.xls
+aws s3 cp awsinfo-$d$m$y.xls s3://$s3bucket/awscmdb/awsinfo-$d$m$y.xls
 }
 
 cleanup ()
