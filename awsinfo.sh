@@ -22,8 +22,8 @@
 # 0 11 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
 
 basedir=/usr/local/awsinfo
-accounts="acct1 acct2 acct3 acct4 acct5 acct6"
-s3bucket=mys3bucket
+accounts="default acct2 acct3"
+s3bucket=mybucket
 
 headers ()
 {
@@ -33,7 +33,8 @@ echo "Account,ImageId,CreationDate,VirtualizationType,Name,VolumeSize,Architectu
 echo "Account,.SnapshotId,StartTime,VolumeSize,Description,VolumeId,State,Progress,Encrypted,Tag Product,Tag Bu,Tag Environment,Tag Owner,Tag Cc,Tag Name,Monthly Cost" > snapshots
 echo "Account,VpcId,CidrBlock,DhcpOptionsId,DhcpOptionsId,IsDefault,Tag Product,Tag Bu,Tag Environment,Tag Owner,Tag Cc" > VPCs
 echo "Account,VpcId,SubnetId,AvailabilityZone,CidrBlock,AvailableIpAddressCount,Tag Product,Tag BusinessUnit,Tag Environment,Tag Owner,Tag CostCenter" > subnets
-echo "Account,.RouteTableId,VpcId,Associations[0].Main,Associations[0].SubnetId,Associations[1].SubnetId,Associations[2].SubnetId,Associations[3].SubnetId,Associations[4].SubnetId,Associations[5].SubnetId,.Associations[6].SubnetId,Associations[7].SubnetId,Associations[8].SubnetId,Associations[9].SubnetId,Routes[0].DestinationCidrBlock,Routes[1].DestinationCidrBlock,Routes[2].DestinationCidrBlock,Routes[3].DestinationCidrBlock,Routes[4].DestinationCidrBlock,Routes[5].DestinationCidrBlock,Routes[6].DestinationCidrBlock,Routes[7].DestinationCidrBlock,Routes[8].DestinationCidrBlock,Routes[9].DestinationCidrBlock,Tags Product,Tags BusinessUnit,Tags Environment,Tags Owner,Tags CostCenter,Tags Name" > routetables
+echo "Account,RouteTableId,VpcId,Associations[0].Main,Associations[0].SubnetId,Associations[1].SubnetId,Associations[2].SubnetId,Associations[3].SubnetId,Associations[4].SubnetId,Associations[5].SubnetId,.Associations[6].SubnetId,Associations[7].SubnetId,Associations[8].SubnetId,Associations[9].SubnetId,Routes[0].DestinationCidrBlock,Routes[1].DestinationCidrBlock,Routes[2].DestinationCidrBlock,Routes[3].DestinationCidrBlock,Routes[4].DestinationCidrBlock,Routes[5].DestinationCidrBlock,Routes[6].DestinationCidrBlock,Routes[7].DestinationCidrBlock,Routes[8].DestinationCidrBlock,Routes[9].DestinationCidrBlock,Tags Product,Tags BusinessUnit,Tags Environment,Tags Owner,Tags CostCenter,Tags Name" > routetables
+echo "Account,.GroupId,.GroupName,Name,VpcId,IpPermissions[0],IpPermissions[0],IpPermissions[2],IpPermissions[3],IpPermissions[4],IpPermissions[5],IpPermissions[6],IpPermissions[7],IpPermissions[8],IpPermissions[9],IpPermissions[10],IpPermissions[11],IpPermissions[12],IpPermissions[13],IpPermissions[14],IpPermissions[15],IpPermissions[16],IpPermissions[16],IpPermissions[18],IpPermissions[19],IpPermissionsEgress[0],IpPermissionsEgress[1],IpPermissionsEgress[2],IpPermissionsEgress[3],IpPermissionsEgress[4],IpPermissionsEgress[5],IpPermissionsEgress[6],IpPermissionsEgress[7],IpPermissionsEgress[8],IpPermissionsEgress[9],IpPermissionsEgress[10],IpPermissionsEgress[11],IpPermissionsEgress[12],IpPermissionsEgress[13],IpPermissionsEgress[14],IpPermissionsEgress[15],IpPermissionsEgress[16],IpPermissionsEgress[17],IpPermissionsEgress[18],IpPermissionsEgress[19],Tag Name,Tag Product,Tag Bu,Tag Environment,Tag Owner,Tag Cc" > SGs
 echo "Account,LoadBalancerName,DNSName,CreatedTime,VPCId,Subnets[0],Subnets[1],Listener.InstancePort,Listener.LoadBalancerPort,Listener.Protocol,Listener.InstanceProtocol,Instances[0],Instances[1],Instances[2],Instances[3],HealthCheck.HealthyThreshold,HealthCheck.Interval,HealthCheck.Target,HealthCheck.Timeout,HealthCheck.UnhealthyThreshold,Tags Product,Tags Bu,Tags Environment,Tags Owner,Tags Cc,Tags Name" > ELBs
 echo "Account,DBInstanceIdentifier,Engine,DBSubnetGroup.VpcId,AvailabilityZone,MultiAZ,DBInstanceClass,StorageType,AllocatedStorage,InstanceCreateTime,Tags Product,Tags BusinessUnit,Tags Environment,Tags Owner,Tags CostCenter,CPU 95th Percentile (when running),Percent Running,Monthly Cost" > RDS
 > IAM
@@ -56,7 +57,7 @@ aws ec2 describe-vpcs | jq -r  '.Vpcs[] | (.Tags | map(.value=.Value | .key=.Key
 aws ec2 describe-subnets  | jq -r  '.Subnets[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.VpcId),\(.SubnetId),\(.AvailabilityZone),\(.CidrBlock),\(.AvailableIpAddressCount),\($tags.Product),\($tags.BusinessUnit),\($tags.Environment),\($tags.Owner),\($tags.CostCenter)"' 2>/dev/null | sed "1,\$s/^/$i,/" >> subnets
 aws ec2 describe-route-tables | jq -r  '.RouteTables[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.RouteTableId),\(.VpcId),\(.Associations[0].Main),\(.Associations[0].SubnetId),\(.Associations[1].SubnetId),\(.Associations[2].SubnetId),\(.Associations[3].SubnetId),\(.Associations[4].SubnetId),\(.Associations[5].SubnetId),\(.Associations[6].SubnetId),\(.Associations[7].SubnetId),\(.Associations[8].SubnetId),\(.Associations[9].SubnetId),\(.Routes[0].DestinationCidrBlock),\(.Routes[1].DestinationCidrBlock),\(.Routes[2].DestinationCidrBlock),\(.Routes[3].DestinationCidrBlock),\(.Routes[4].DestinationCidrBlock),\(.Routes[5].DestinationCidrBlock),\(.Routes[6].DestinationCidrBlock),\(.Routes[7].DestinationCidrBlock),\(.Routes[8].DestinationCidrBlock),\(.Routes[9].DestinationCidrBlock),\($tags.Product),\($tags.BusinessUnit),\($tags.Environment),\($tags.Owner),\($tags.CostCenter),\($tags.Name)"' 2>/dev/null  | sed "1,\$s/^/$i,/" >> routetables
 
-#  aws ec2 describe-security-groups | jq -r  '.SecurityGroups[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.GroupId)#\(.GroupName)#\($tags.Name)#\(.VpcId)#\(.IpPermissions[0])#\(.IpPermissions[1])#\(.IpPermissions[2])#\(.IpPermissions[3])#\(.IpPermissions[4])#\(.IpPermissions[5])#\(.IpPermissions[6])#\(.IpPermissions[7])#\(.IpPermissions[8])#\(.IpPermissions[9])#\(.IpPermissions[10])#\(.IpPermissions[11])#\(.IpPermissions[12])#\(.IpPermissions[13])#\(.IpPermissions[14])#\(.IpPermissions[15])#\(.IpPermissions[16])#\(.IpPermissions[17])#\(.IpPermissions[18])#\(.IpPermissions[19])#\(.IpPermissionsEgress[0])#\(.IpPermissionsEgress[1])#\(.IpPermissionsEgress[2])#\(.IpPermissionsEgress[3])#\(.IpPermissionsEgress[4])#\(.IpPermissionsEgress[5])#\(.IpPermissionsEgress[6])#\(.IpPermissionsEgress[7])#\(.IpPermissionsEgress[8])#\(.IpPermissionsEgress[9])#\(.IpPermissionsEgress[10])#\(.IpPermissionsEgress[11])#\(.IpPermissionsEgress[12])#\(.IpPermissionsEgress[13])#\(.IpPermissionsEgress[14])#\(.IpPermissionsEgress[15])#\(.IpPermissionsEgress[16])#\(.IpPermissionsEgress[17])#\(.IpPermissionsEgress[18])#\(.IpPermissionsEgress[19])#\($tags.Product)#\($tags.Bu)#\($tags.Environment)#\($tags.Owner)#\($tags.Cc)#\($tags.Name)"' 2>/dev/null  | tr ',' ';' | tr '#' ','
+aws ec2 describe-security-groups | jq -r  '.SecurityGroups[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.GroupId)#\(.GroupName)#\($tags.Name)#\(.VpcId)#\(.IpPermissions[0])#\(.IpPermissions[1])#\(.IpPermissions[2])#\(.IpPermissions[3])#\(.IpPermissions[4])#\(.IpPermissions[5])#\(.IpPermissions[6])#\(.IpPermissions[7])#\(.IpPermissions[8])#\(.IpPermissions[9])#\(.IpPermissions[10])#\(.IpPermissions[11])#\(.IpPermissions[12])#\(.IpPermissions[13])#\(.IpPermissions[14])#\(.IpPermissions[15])#\(.IpPermissions[16])#\(.IpPermissions[17])#\(.IpPermissions[18])#\(.IpPermissions[19])#\(.IpPermissionsEgress[0])#\(.IpPermissionsEgress[1])#\(.IpPermissionsEgress[2])#\(.IpPermissionsEgress[3])#\(.IpPermissionsEgress[4])#\(.IpPermissionsEgress[5])#\(.IpPermissionsEgress[6])#\(.IpPermissionsEgress[7])#\(.IpPermissionsEgress[8])#\(.IpPermissionsEgress[9])#\(.IpPermissionsEgress[10])#\(.IpPermissionsEgress[11])#\(.IpPermissionsEgress[12])#\(.IpPermissionsEgress[13])#\(.IpPermissionsEgress[14])#\(.IpPermissionsEgress[15])#\(.IpPermissionsEgress[16])#\(.IpPermissionsEgress[17])#\(.IpPermissionsEgress[18])#\(.IpPermissionsEgress[19])#\($tags.Product)#\($tags.Bu)#\($tags.Environment)#\($tags.Owner)#\($tags.Cc)#\($tags.Name)"' 2>/dev/null  | tr ',' ';' | tr '#' ',' | sed "1,\$s/^/$i,/" >> SGs
 
 aws elb describe-load-balancers | jq -r  '.LoadBalancerDescriptions[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.LoadBalancerName),\(.DNSName),\(.CreatedTime),\(.VPCId),\(.Subnets[0]),\(.Subnets[1]),\(.ListenerDescriptions[0].Listener.InstancePort),\(.ListenerDescriptions[0].Listener.LoadBalancerPort),\(.ListenerDescriptions[0].Listener.Protocol),\(.ListenerDescriptions[0].Listener.InstanceProtocol),\(.Instances[0].InstanceId),\(.Instances[1].InstanceId),\(.Instances[2].InstanceId),\(.Instances[3].InstanceId),\(.HealthCheck.HealthyThreshold),\(.HealthCheck.Interval),\(.HealthCheck.Target),\(.HealthCheck.Timeout),\(.HealthCheck.UnhealthyThreshold),\($tags.Product),\($tags.Bu),\($tags.Environment),\($tags.Owner),\($tags.Cc),\($tags.Name)"' 2>/dev/null | sed "1,\$s/^/$i,/" >> ELBs
 
@@ -129,7 +130,7 @@ echo "AMI images,$sumimages,$sumimagescost"
 echo "RDS instances,$sumrds,$sumrdscost"
 echo "ElastiCache instances,$sumelasti,$sumelasticcost"
 echo "S3,$sums3,$sums3cost"
-echo 
+echo
 echo "ELBs,$sumelb"
 echo "IAM users,$sumiamusers"
 echo "IAM access keys,$sumiamkeys"
@@ -150,8 +151,8 @@ cp awsinfo.xls awsinfo-$d$m$y.xls
 
 uploadS3 ()
 {
-export AWS_DEFAULT_PROFILE=actt1
-aws s3 cp awsinfo-$d$m$y.xls s3://$s3bucket/awscmdb/awsinfo-$d$m$y.xls
+export AWS_DEFAULT_PROFILE=`echo $accounts | cut -d' ' -f1`
+aws s3 cp awsinfo-$d$m$y.xls s3://$s3bucket/awsinfo/awsinfo-$d$m$y.xls
 }
 
 cleanup ()
@@ -188,7 +189,7 @@ echo "=== Starting volumes `date`"
              calc95th
              export ${metric}95=$c95
         done
-        for metric in VolumeReadBytes VolumeWriteBytes 
+        for metric in VolumeReadBytes VolumeWriteBytes
         do
              aws cloudwatch get-metric-statistics --metric-name $metric --start-time `date --date="15 days ago" +'%Y-%m-%dT%H:%M:00'` --end-time `date  +'%Y-%m-%dT%H:%M:00'` --period 900 --namespace AWS/EBS \
                   --statistics Average --dimensions Name=VolumeId,Value=$v | grep -i Average | cut -d':' -f2  | cut -d',' -f1 | sort -n | cat -n  | awk ' { print $1 " " $2 } ' > temp.95
@@ -196,8 +197,8 @@ echo "=== Starting volumes `date`"
              export ${metric}95=$c95
         done
 
-        VolumeReadOps95=`echo "scale=2;$VolumeReadOps95/900" | bc`
-        VolumeWriteOps95=`echo "scale=2;$VolumeWriteOps95/900" | bc`
+        [ "$VolumeReadOps95" == "" ] && VolumeReadOps95=0 || VolumeReadOps95=`echo "scale=2;$VolumeReadOps95/900" | bc`
+        [ "$VolumeWriteOps95" == "" ] && VolumeWriteOps95=0 || VolumeWriteOps95=`echo "scale=2;$VolumeWriteOps95/900" | bc`
         echo "$line,$cost,$VolumeIdleTime95,$VolumeQueueLength95,$VolumeReadBytes95,$VolumeWriteBytes95,$VolumeReadOps95,$VolumeWriteOps95" >> volumes
   done < temp.volumes
 
@@ -248,10 +249,11 @@ echo "=== Starting instances `date`"
              calc95th
              export ${metric}95=$c95
         done
-        DsikReadOps95=`echo "scale=2;$DiskReadOps95/900" | bc`
-        DiskWriteOps95=`echo "scale=2;$DiskWriteOps95/900" | bc`
-        NetworkIn95=`echo "scale=2;$NetworkIn95/900" | bc`
-        NetworkOut95=`echo "scale=2;$NetworkOut95/900" | bc`
+
+        [ "$DiskReadOps95" == "" ] && DiskReadOps95=0 || DiskReadOps95=`echo "scale=2;$DiskReadOps95/900" | bc`
+        [ "$DiskWriteOps95" == "" ] && DiskWritOps95=0 || DiskWriteOps95=`echo "scale=2;$DiskWriteOps95/900" | bc`
+        [ "$NetworkIn95" == "" ] && NetworkIn95=0 || NetworkIn95=`echo "scale=2;$NetworkIn95/900" | bc`
+        [ "$NetworkOut95" == "" ] && NetworkOut95=0 || NetworkOut95=`echo "scale=2;$NetworkOut95/900" | bc`
 
         if [ $(date -d "$si" +%s) -le $(date -d "$s" +%s) ]
         then
