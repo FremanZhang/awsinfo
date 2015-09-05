@@ -32,6 +32,7 @@ How to get it running:
        - basedir: where awsinfor will reside
        - accounts: list of AWS accounts (or AWS CLI profiles)
        - s3bucket: name of s3bucket where to upload Excel spreadsheet
+- customise aws.costs (listed file contain Sydney region costs)
 - Add awsinfo to daily cron job such as: 0 11 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
 
 
