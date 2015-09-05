@@ -145,7 +145,7 @@ python ./makeexcel.py
 d=`date +%d`
 m=`date +%m`
 y=`date +%Y`
-mv awsinfo.xls awsinfo-$d$m$y.xls
+cp awsinfo.xls awsinfo-$d$m$y.xls
 }
 
 uploadS3 ()
