@@ -19,6 +19,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
+# 0 11 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
+
+basedir=/usr/local/awsinfo
+accounts="acct1 acct2 acct3 acct4 acct5 acct6"
 
 headers ()
 {
@@ -155,12 +159,11 @@ rm -rf temp.*
 }
 
 # Main
-BASEDIR=/home/ec2-user/awsinfo
-cd $BASEDIR
+cd $basedir
 headers
 
 # For each AWS account gather AWS information
-for i in acct1 acct2 acct3 acct4 acct5
+for i in $accounts
 do
   echo -e "\n\n=== Starting Account=$i `date`\n\n"
   export AWS_DEFAULT_PROFILE=$i
