@@ -4,7 +4,7 @@ import glob
 import csv
 import xlwt
 
-s = [ "instances", "volumes", "images" , "snapshots" , "VPCs" , "subnets" , "routetables" , "ELBs" , "RDS" , "IAM" , "S3" , "elastic" , "aws.costs" , "Summary" ]
+s = [ "instances", "volumes", "images" , "snapshots" , "VPCs" , "subnets" , "routetables" , "SGs" , "ELBs" , "RDS" , "IAM" , "S3" , "elastic" , "aws.costs" , "Summary" ]
 workbook = xlwt.Workbook(encoding='utf-8')
 for csvfile in s:
      print csvfile
