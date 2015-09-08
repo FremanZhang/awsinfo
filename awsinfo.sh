@@ -21,9 +21,9 @@
 
 # 0 11 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
 
-basedir=/usr/local/awsinfo
-accounts="default acct2 acct3"
-s3bucket=mybucket
+basedir=/home/ec2-user/awsinfo.git
+accounts="ndm newsapi opsdev nlmuat nlmprod nlmdev nlmburo aibmprod aibmuat aibmdev anildoma salesprod digdev findev"
+s3bucket=vsphere-import
 
 headers ()
 {
@@ -49,7 +49,8 @@ aws ec2 describe-instances | jq -r  '.Reservations[].Instances[] | (.Tags | map(
 
 aws ec2 describe-volumes | jq -r  '.Volumes[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.VolumeId),\(.VolumeType),\(.Encrypted),\(.State),\(.Size),\(.Attachments[0].InstanceId),\(.Attachments[0].State),\(.Attachments[0].DeleteOnTermination),\(.Attachments[0].Device),\($tags.Name),\($tags.Product),\($tags.Bu),\($tags.Environment),\($tags.Owner),\($tags.Cc)"' 2>/dev/null  | sed "1,\$s/^/$i,/"  > temp.volumes
 
-aws ec2 describe-snapshots | jq -r  '.Snapshots[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.SnapshotId),\(.StartTime),\(.VolumeSize),\(.Description),\(.VolumeId),\(.State),\(.Progress),\(.Encrypted),\($tags.Product),\($tags.Bu),\($tags.Environment),\($tags.Owner),\($tags.Cc),\($tags.Name)"' 2>/dev/null | sed "1,\$s/^/$i,/" > temp.snapshots
+owner=`aws iam list-users  | grep -i arn | grep user | cut -d':' -f6 | tail -1`
+aws ec2 describe-snapshots  --owner-ids $owner | jq -r  '.Snapshots[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.SnapshotId),\(.StartTime),\(.VolumeSize),\(.Description),\(.VolumeId),\(.State),\(.Progress),\(.Encrypted),\($tags.Product),\($tags.Bu),\($tags.Environment),\($tags.Owner),\($tags.Cc),\($tags.Name)"' 2>/dev/null | sed "1,\$s/^/$i,/" > temp.snapshots
 
 aws ec2 describe-images  | jq -r  '.Images[] | (.Tags | map(.value=.Value | .key=.Key) | from_entries) as $tags | "\(.ImageId),\(.CreationDate),\(.VirtualizationType),\(.Name),\(.BlockDeviceMappings[0].Ebs.VolumeSize),\(.Architecture),\(.Public),\($tags.Name),\($tags.Product),\($tags.Bu),\($tags.Environment),\($tags.Owner),\($tags.Cc)"'  2>/dev/null | grep false | sed "1,\$s/^/$i,/" > temp.images
 
@@ -90,7 +91,7 @@ s3bucketsizes ()
 summary ()
 {
 suminstances=$(expr `cat instances | wc -l` - 1)
-suminstancescost=$(cat  instances | cut -d',' -f40 | awk ' { x+=$1; print x } ' | tail -1)
+suminstancescost=$(cat  instances | cut -d',' -f41 | awk ' { x+=$1; print x } ' | tail -1)
 
 sumvolumes=$(expr `cat volumes | wc -l` - 1)
 sumvolumescost=$(cat volumes  | cut -d',' -f17 |  awk ' { x+=$1; print x } ' | tail -1)
@@ -123,7 +124,7 @@ sumroute=$(expr `cat routetables | wc -l` - 1)
 
 (
 echo "Resource,Count,Monthly Cost Estimate (US$)"
-echo "Instances,$suminstances,$suminstances"
+echo "Instances,$suminstances,$suminstancescost"
 echo "Volumes,$sumvolumes,$sumvolumescost"
 echo "Snapshots,$sumsnap,$sumsnapcost"
 echo "AMI images,$sumimages,$sumimagescost"

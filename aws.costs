@@ -28,30 +28,30 @@ ec2,d2.xlarge,4 cores,30.5 GB,626.4,720.72,d2.xlarge - 4/30.5
 ec2,d2.2xlarge,8 cores,61.0 GB,1252.8,1411.92,d2.2xlarge - 8/61
 ec2,d2.4xlarge,16 cores,122.0 GB,2505.6,2723.04,d2.4xlarge - 16/122
 ec2,d2.8xlarge,36 cores,244.0 GB,5011.2,5499.36,d2.8xlarge - 36/244
-ec2,m3.medium,1 cores,3.75 GB,66.96,112.32
-ec2,m3.large,2 cores,7.5 GB,133.92,224.64
-ec2,m3.xlarge,4 cores,15.0 GB,267.84,449.28
-ec2,m3.2xlarge,8 cores,30.0 GB,536.4,899.28
-ec2,c3.large,2 cores,3.75 GB,95.04,171.36
-ec2,c3.xlarge,4 cores,7.5 GB,190.8,343.44
-ec2,c3.2xlarge,8 cores,15.0 GB,380.88,686.16
-ec2,c3.4xlarge,16 cores,30.0 GB,761.76,1372.32
-ec2,c3.8xlarge,32 cores,60.0 GB,1524.24,2745.36
-ec2,m1.small,1 cores,1.7 GB,41.76,66.96
-ec2,m1.medium,1 cores,3.75 GB,84.24,134.64
-ec2,m1.large,2 cores,7.5 GB,167.76,268.56
-ec2,m1.xlarge,4 cores,15.0 GB,336.24,537.84
-ec2,c1.medium,2 cores,1.7 GB,118.08,191.52
-ec2,c1.xlarge,8 cores,7.0 GB,471.6,766.8
-ec2,cc2.8xlarge,32 cores,60.5 GB,unavailable,unavailable
-ec2,cg1.4xlarge,16 cores,22.5 GB,unavailable,unavailable
-ec2,m2.xlarge,2 cores,17.1 GB,213.12,267.12
-ec2,m2.2xlarge,4 cores,34.2 GB,426.24,534.24
-ec2,m2.4xlarge,8 cores,68.4 GB,851.76,1067.76
-ec2,cr1.8xlarge,32 cores,244.0 GB,unavailable,unavailable
-ec2,hi1.4xlarge,16 cores,60.5 GB,unavailable,unavailable
-ec2,hs1.8xlarge,17 cores,117.0 GB,4010.4,4248.72
-ec2,t1.micro,1 cores,0.613 GB,14.4,14.4
+ec2,m3.medium,1 cores,3.75 GB,66.96,112.32,m3.medium - 1/3.75
+ec2,m3.large,2 cores,7.5 GB,133.92,224.64,m3.large - 2/7.5
+ec2,m3.xlarge,4 cores,15.0 GB,267.84,449.28,m3.xlarge - 4/15
+ec2,m3.2xlarge,8 cores,30.0 GB,536.4,899.28,m3.2xlarge - 8/30
+ec2,c3.large,2 cores,3.75 GB,95.04,171.36,c3.large - 2/3.75
+ec2,c3.xlarge,4 cores,7.5 GB,190.8,343.44,c3.xlarge - 4/7.5
+ec2,c3.2xlarge,8 cores,15.0 GB,380.88,686.16,c3.2xlarge - 8/15
+ec2,c3.4xlarge,16 cores,30.0 GB,761.76,1372.32,c3.4xlarge - 16/30
+ec2,c3.8xlarge,32 cores,60.0 GB,1524.24,2745.36,c3.8xlarge - 32/60
+ec2,m1.small,1 cores,1.7 GB,41.76,66.96,m1.small - 1/1.7
+ec2,m1.medium,1 cores,3.75 GB,84.24,134.64,m1.medium - 1/3.75
+ec2,m1.large,2 cores,7.5 GB,167.76,268.56,m1.large - 2/7.5
+ec2,m1.xlarge,4 cores,15.0 GB,336.24,537.84,m1.xlarge - 4/15
+ec2,c1.medium,2 cores,1.7 GB,118.08,191.52,c1.medium - 2/1.7
+ec2,c1.xlarge,8 cores,7.0 GB,471.6,766.8,c1.xlarge - 8/7
+ec2,cc2.8xlarge,32 cores,60.5 GB,unavailable,unavailable,cc2.8xlarge - 32/60.5
+ec2,cg1.4xlarge,16 cores,22.5 GB,unavailable,unavailable,cg1.4xlarge - 16/22.5
+ec2,m2.xlarge,2 cores,17.1 GB,213.12,267.12,m2.xlarge - 2/17.1
+ec2,m2.2xlarge,4 cores,34.2 GB,426.24,534.24,m2.2xlarge - 4/34.2
+ec2,m2.4xlarge,8 cores,68.4 GB,851.76,1067.76,m2.4xlarge - 8/68.4
+ec2,cr1.8xlarge,32 cores,244.0 GB,unavailable,unavailable,cr1.8xlarge - 32/244
+ec2,hi1.4xlarge,16 cores,60.5 GB,unavailable,unavailable,hi1.4xlarge - 16/60.5
+ec2,hs1.8xlarge,17 cores,117.0 GB,4010.4,4248.72,hs1.8xlarge - 17/117
+ec2,t1.micro,1 cores,0.613 GB,14.4,14.4,t1.micro - 1/0.6
 
 RDS
 rds,MySQL,db.t2.micro,21.6,43.2
