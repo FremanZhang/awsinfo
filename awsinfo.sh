@@ -21,9 +21,9 @@
 
 # 0 11 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
 
-basedir=/home/ec2-user/awsinfo.git
-accounts="ndm newsapi opsdev nlmuat nlmprod nlmdev nlmburo aibmprod aibmuat aibmdev anildoma salesprod digdev findev"
-s3bucket=vsphere-import
+basedir=/home/ec2-user/awsinfo
+accounts="default acct1 acct2 acct3"
+s3bucket=mybucket
 
 headers ()
 {
