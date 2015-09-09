@@ -21,9 +21,9 @@
 
 # 0 11 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
 
-basedir=/home/ec2-user/awsinfo
-accounts="default acct1 acct2 acct3"
-s3bucket=mybucket
+basedir=/home/ec2-user/awsinfo.git
+accounts="ndm newsapi opsdev nlmuat nlmprod nlmdev nlmburo aibmprod aibmuat aibmdev anildoma salesprod digdev findev"
+s3bucket=vsphere-import
 
 headers ()
 {
@@ -39,7 +39,7 @@ echo "Account,LoadBalancerName,DNSName,CreatedTime,VPCId,Subnets[0],Subnets[1],L
 echo "Account,DBInstanceIdentifier,Engine,DBSubnetGroup.VpcId,AvailabilityZone,MultiAZ,DBInstanceClass,StorageType,AllocatedStorage,InstanceCreateTime,Tags Product,Tags BusinessUnit,Tags Environment,Tags Owner,Tags CostCenter,CPU 95th Percentile (when running),Percent Running,Monthly Cost" > RDS
 > IAM
 echo "Account,Bucket,Size,Monthly Cost" > S3
-echo "Account,CacheClusterId,Engine,NumCacheNodes,CacheNodeType,CacheClusterCreateTime,CacheClusterStatus,Monthly Cost,CPU 95th Percentile" >  elastic
+echo "Account,CacheClusterId,Engine,NumCacheNodes,CacheNodeType,CacheClusterCreateTime,CacheClusterStatus,Monthly Cost,CPU 95th Percentile,BytesUsedForCache95,CacheHits95,SwapUsage95,NetworkBytesIn95,NetworkBytesOut95,Evictions95,CurrConnections95" >  elastic
 }
 
 awsinfo ()
@@ -324,11 +324,16 @@ echo "=== Starting Elasticache `date`"
         c=`echo $line |  cut -d',' -f2`
         t=`echo $line |  cut -d',' -f5`
         cost=`grep $t aws.costs | cut -d',' -f3`
-        aws cloudwatch get-metric-statistics --metric-name CPUUtilization --start-time `date --date="15 days ago" +'%Y-%m-%dT%H:%M:00'` --end-time `date  +'%Y-%m-%dT%H:%M:00'` --period 900 --namespace AWS/ElastiCache \
-                        --statistics Maximum --dimensions Name=CacheClusterId,Value=$c | grep -i Maximum  | cut -d':' -f2  | cut -d',' -f1 | sort -n | cat -n  | awk ' { print $1 " " $2 } ' > temp.95
+        for metric in CPUUtilization BytesUsedForCache CacheHits SwapUsage NetworkBytesIn NetworkBytesOut Evictions CurrConnections
+        do
+             aws cloudwatch get-metric-statistics --metric-name $metric --start-time `date --date="15 days ago" +'%Y-%m-%dT%H:%M:00'` --end-time `date  +'%Y-%m-%dT%H:%M:00'` --period 900 --namespace AWS/ElastiCache \
+              --statistics Maximum --dimensions Name=CacheClusterId,Value=$c | grep -i Maximum  | cut -d':' -f2  | cut -d',' -f1 | sort -n | cat -n  | awk ' { print $1 " " $2 } ' > temp.95
+             calc95th
+             export ${metric}95=$c95
+        done
         calc95th
         cpu95=$c95
-        echo "$line,$cost,$cpu95" >> elastic
+        echo "$line,$cost,$CPUUtilization95,$BytesUsedForCache95,$CacheHits95,$SwapUsage95,$NetworkBytesIn95,$NetworkBytesOut95,$Evictions95,$CurrConnections95" >> elastic
   done < temp.elastic
 
 echo "=== Starting S3 `date`"
