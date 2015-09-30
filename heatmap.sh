@@ -90,7 +90,7 @@ do
    #echo "$line,$total,$running,$linuxaza,$linuxazb,$windowsza,$windowszb"
    echo "$line,$running" >> instancesummary.new
    echo "$linecost,$cost" >> instancecost.new
-   echo "$lineperf,$cost" >> instanceperf.new
+   echo "$lineperf,$cpuavg" >> instanceperf.new
 done
 mv instancesummary.new instancesummary
 mv instancecost.new instancecost
