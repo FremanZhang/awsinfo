@@ -1,6 +1,6 @@
 #!/bin/bash
-basedir=/home/ec2-user/awsinfo
-accounts="ndm dpprod nlmprod dsprod opsdev diguat salesuat salesdev finprod nlmburo newsapi aibmuat aibmdev dsuat aibmprod anildoma dpuat nlmdev salesprod digdev dsdev nlmuat findev finuat dpdev"
+basedir=/usr/local/awsinfo
+accounts="acct1 acct2 acct3"
 instances="t2.micro t1.micro t2.small m1.small t2.medium m3.medium m1.medium c3.large c4.large t2.large c1.medium m4.large m3.large r3.large m1.large c3.xlarge c4.xlarge m2.xlarge m4.xlarge m3.xlarge r3.xlarge m1.xlarge c3.2xlarge c4.2xlarge m2.2xlarge c1.xlarge m4.2xlarge m3.2xlarge r3.2xlarge d2.xlarge g2.2xlarge i2.xlarge c3.4xlarge c4.4xlarge m2.4xlarge m4.4xlarge r3.4xlarge d2.2xlarge i2.2xlarge c3.8xlarge c4.8xlarge r3.8xlarge d2.4xlarge m4.10xlarge g2.8xlarge i2.4xlarge hs1.8xlarge d2.8xlarge i2.8xlarge"
 
 cd $basedir
