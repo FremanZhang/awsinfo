@@ -1,0 +1,4 @@
+0 0 * * * source /etc/profile && /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
+30 * * * * /etc/profile &&  /usr/local/awsinfo/heatmap.sh > /home/ec2-user/awsinfo/heatmap.out 2>&1
+*/1 * * * * source /etc/profile && aws cloudwatch put-metric-data --metric-name MemoryUsedMB --namespace "Sytem/Linux" --dimensions "InstanceId=i-db8dabcd" --value `free -m | grep Mem: | awk ' { print $3-$6-$7 } '`  --unit "Megabytes" --timestamp `date -u +'\%Y-\%m-\%dT\%H:\%M:00'` > /tmp/cloudwatch.out 2>&1
+
