@@ -21,10 +21,9 @@
 
 # 0 11 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
 
-basedir=/home/ec2-user/awsinfo
-#accounts="nlmprod"
-accounts="ndm dpprod nlmprod dsprod opsdev diguat salesuat salesdev finprod nlmburo newsapi aibmuat aibmdev dsuat aibmprod anildoma dpuat nlmdev salesprod digdev dsdev nlmuat findev finuat dpdev"
-s3bucket=vsphere-import
+basedir=/usr/local/awsinfo
+accounts="acct1 acct2 acct3"
+s3bucket=mybucket
 sambadir="/awsinfo"
 
 headers ()
@@ -471,9 +470,6 @@ makeexcel
 uploadS3
 cleanup
 copySamba
-tar cf /tmp/awsinfo.tar .
-curl --request PUT --upload-file "/tmp/awsinfo.tar" "https://s3-ap-southeast-2.amazonaws.com/dropbox-22111964/"
-
 echo -e "\n\n=== awsinfo completed `date`"
 
 exit 0
