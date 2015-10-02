@@ -1,7 +1,16 @@
 #!/bin/bash
-basedir=/usr/local/awsinfo
-accounts="acct1 acct2 acct3"
+basedir=/home/ec2-user/awsinfo
+accounts="ndm dpprod nlmprod dsprod opsdev diguat salesuat salesdev finprod nlmburo newsapi aibmuat aibmdev dsuat aibmprod anildoma dpuat nlmdev salesprod digdev dsdev nlmuat findev finuat dpdev"
 instances="t2.micro t1.micro t2.small m1.small t2.medium m3.medium m1.medium c3.large c4.large t2.large c1.medium m4.large m3.large r3.large m1.large c3.xlarge c4.xlarge m2.xlarge m4.xlarge m3.xlarge r3.xlarge m1.xlarge c3.2xlarge c4.2xlarge m2.2xlarge c1.xlarge m4.2xlarge m3.2xlarge r3.2xlarge d2.xlarge g2.2xlarge i2.xlarge c3.4xlarge c4.4xlarge m2.4xlarge m4.4xlarge r3.4xlarge d2.2xlarge i2.2xlarge c3.8xlarge c4.8xlarge r3.8xlarge d2.4xlarge m4.10xlarge g2.8xlarge i2.4xlarge hs1.8xlarge d2.8xlarge i2.8xlarge"
+
+
+calc80th ()
+{
+  l=`wc -l temp.avgcpu | cut -d' ' -f1`
+  l80=`echo "scale=0;$l*0.80+0.5"  | bc | cut -d'.' -f1`
+  l80=`echo ${l80%.*}`
+  c80=`grep "^$l80 " temp.avgcpu | cut -d' ' -f2 `
+}
 
 cd $basedir
 > temp.instances.hourly
@@ -80,8 +89,9 @@ do
 
    if [ $running -ne 0 ]
    then
-      totalcpu=$(grep $i temp.instances.hourly | grep running | cut -d',' -f39 | awk ' { x+=$1; print x } ' | tail -1)
-      avgcpu=$(echo "scale=2;$totalcpu/$running" | bc )
+      grep $i temp.instances.hourly | grep running | cut -d',' -f39 |  sort -n  | cat -n | awk ' { print $1 " " $2 } ' > temp.avgcpu
+      calc80th
+      avgcpu=$c80
    else
       avgcpu=0
    fi
@@ -90,7 +100,7 @@ do
    #echo "$line,$total,$running,$linuxaza,$linuxazb,$windowsza,$windowszb"
    echo "$line,$running" >> instancesummary.new
    echo "$linecost,$cost" >> instancecost.new
-   echo "$lineperf,$cpuavg" >> instanceperf.new
+   echo "$lineperf,$avgcpu" >> instanceperf.new
 done
 mv instancesummary.new instancesummary
 mv instancecost.new instancecost

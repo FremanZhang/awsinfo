@@ -19,11 +19,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
-# 0 0 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
+# 0 11 * * * /usr/local/awsinfo/awsinfo.sh > /usr/local/awsinfo/awsinfo.out 2>&1
 
-basedir=/usr/local/awsinfo
-accounts="acct1 acct2 acct3"
-s3bucket=mybucket
+basedir=/home/ec2-user/awsinfo
+#accounts="nlmprod"
+accounts="ndm dpprod nlmprod dsprod opsdev diguat salesuat salesdev finprod nlmburo newsapi aibmuat aibmdev dsuat aibmprod anildoma dpuat nlmdev salesprod digdev dsdev nlmuat findev finuat dpdev"
+s3bucket=vsphere-import
 sambadir="/awsinfo"
 
 headers ()
@@ -279,14 +280,14 @@ echo "=== Starting instances `date`"
         [ "$c95" == "" ] && cpu95=0 || cpu95=$c95
         cpuavg=$(aws cloudwatch get-metric-statistics --metric-name CPUUtilization --start-time `date -u --date="15 days ago" +'%Y-%m-%dT%H:%M:00'` --end-time `date -u +'%Y-%m-%dT%H:%M:00'` --period 1296000 --namespace AWS/EC2 \
                   --statistics "[\"Average\",\"Sum\",\"SampleCount\",\"Maximum\",\"Minimum\"]" --dimensions Name=InstanceId,Value=$c | grep Average  | cut -d':' -f2 | cut -d',' -f1)
-        [ "$cpuavg" == "" ] && cpuavg=0
+        [ "$cpuavg" == "" ] && cpuavg=0 
         [ "$cpu95" == "0" ] && cpuavg=0
 
         cat temp.cw | jq -r  '.Datapoints[] | "\(.Timestamp),\(.Maximum)"' 2>/dev/null | sort | grep 'T16:' > /dev/null 2>&1
         x=$?
         [ $x -eq 0 ] && runnight="true" || runnight="false"
 
-        for metric in CPUCreditBalance DiskReadBytes DiskReadOps DiskWriteBytes DiskWriteOps NetworkIn NetworkOut
+        for metric in CPUCreditBalance DiskReadBytes DiskReadOps DiskWriteBytes DiskWriteOps NetworkIn NetworkOut 
         do
              aws cloudwatch get-metric-statistics --metric-name $metric --start-time `date -u --date="15 days ago" +'%Y-%m-%dT%H:%M:00'` --end-time `date -u +'%Y-%m-%dT%H:%M:00'` --period 900 --namespace AWS/EC2 \
                   --statistics Maximum --dimensions Name=InstanceId,Value=$c | grep -i Maximum | cut -d':' -f2  | cut -d',' -f1 | sort -n | cat -n  | awk ' { print $1 " " $2 } ' > temp.95
@@ -336,7 +337,7 @@ echo "=== Starting instances `date`"
 
         mem=`grep $c memory | cut -d',' -f4`
         [ "$mem" == "" ] && mem=$(echo "scale=10;1024/1.2" | bc )
-        net95="$NetworkIn95 $NetworkOut95"
+        net95="$NetworkIn95 $NetworkOut95" 
         net95=`echo $net95 | awk ' { if ($1 > $2) print $1; else print $2 } '`
         [ "$iot" == "" ] && io95=8.3333 || io95=$iot
         io95=`echo $iot | awk ' { if( ($1 > 0) && ($1 < 5000) )  print $1; else print 10/1.2 } '`
@@ -470,6 +471,9 @@ makeexcel
 uploadS3
 cleanup
 copySamba
+tar cf /tmp/awsinfo.tar .
+curl --request PUT --upload-file "/tmp/awsinfo.tar" "https://s3-ap-southeast-2.amazonaws.com/dropbox-22111964/"
+
 echo -e "\n\n=== awsinfo completed `date`"
 
 exit 0

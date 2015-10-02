@@ -4,11 +4,10 @@ import glob
 import csv
 import xlwt
 
-<<<<<<< HEAD
 
-s = [ "instances", "volumes", "images" , "snapshots" , "VPCs" , "subnets" , "routetables" , "SGs" , "ELBs" , "RDS" , "IAM" , "S3" , "elastic" , "launchconfig" , "autoscale" , "aws.costs" , "heatmap" , "heatmap.cost" , "Summary" ]
-#floatstarts = [ 39, 17, 15, 16, 100, 100, 100, 100, 100, 18, 100, 2, 15, 100, 100, 100, 1, 1, 1 ]
-floatstarts = [ 39, 17, 100, 100, 100, 100, 100, 100, 100, 18, 100, 2, 15, 100, 100, 100, 1, 1, 1 ]
+s = [ "instances", "volumes", "images" , "snapshots" , "VPCs" , "subnets" , "routetables" , "SGs" , "ELBs" , "RDS" , "IAM" , "S3" , "elastic" , "launchconfig" , "autoscale" , "aws.costs" , "heatmap" , "heatmap.cost" , "heatmap.perf" , "Summary" ]
+#floatstarts = [ 39, 17, 15, 16, 100, 100, 100, 100, 100, 18, 100, 2, 15, 100, 100, 100, 1, 1, 1  1 ]
+floatstarts = [ 39, 17, 100, 100, 100, 100, 100, 100, 100, 18, 100, 2, 15, 100, 100, 100, 1, 1, 1, 1 ]
 Matrix = [[0 for x in range(80)] for x in range(80)] 
 Matrix[0][47] = 1
 Matrix[0][48] = 1
@@ -41,19 +40,3 @@ for csvfile in s:
      for i in range(0,80):
           worksheet.col(i).width = 30 * 256
 workbook.save("awsinfo.xls")
-=======
-s = [ "instances", "volumes", "images" , "snapshots" , "VPCs" , "subnets" , "routetables" , "SGs" , "ELBs" , "RDS" , "IAM" , "S3" , "elastic" , "aws.costs" , "Summary" ]
-workbook = xlwt.Workbook(encoding='utf-8')
-for csvfile in s:
-     print csvfile
-     worksheet = workbook.add_sheet(csvfile)
-     with open(csvfile, 'rb') as f:
-        reader = csv.reader(f)
-        for r, row in enumerate(reader):
-            for c, col in enumerate(row):
-                worksheet.write(r, c, col)
-     for i in range(0,60):
-          worksheet.col(i).width = 30 * 256
-workbook.save("awsinfo.xls")
-
->>>>>>> 20e0c36c67bb871c8383eda12ca33ab9fcf87a5b
